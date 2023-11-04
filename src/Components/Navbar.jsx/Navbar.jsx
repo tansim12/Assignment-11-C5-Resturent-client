@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./navbar.css";
 import LoginAndProfile from "../LoginAndProfile/LoginAndProfile";
+import { AiFillHome } from "react-icons/ai";
+import { BsPencilFill } from "react-icons/bs";
+import { FaProductHunt } from "react-icons/fa";
 
 const Navbar = () => {
   const links = (
@@ -10,6 +13,41 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink to={"/blog"}>Blog</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/allFoodsItems"}>Items</NavLink>
+      </li>
+    </>
+  );
+
+  const linkDrawer = (
+    <>
+      <li className="my-2">
+        <NavLink to={"/"} className={""}>
+          {" "}
+          <span className="text-lg mr-3">
+            <AiFillHome></AiFillHome>
+          </span>{" "}
+          Home
+        </NavLink>
+      </li>
+      <li className="my-2">
+        <NavLink to={"/blog"}>
+          {" "}
+          <span className="text-lg mr-3">
+            <BsPencilFill></BsPencilFill>
+          </span>{" "}
+          Blog
+        </NavLink>
+      </li>
+      <li className="my-2">
+        <NavLink to={"/allFoodsItems"}>
+          {" "}
+          <span className="text-lg mr-3">
+            <FaProductHunt></FaProductHunt>
+          </span>{" "}
+          Items
+        </NavLink>
       </li>
     </>
   );
@@ -21,7 +59,7 @@ const Navbar = () => {
           {/* Navbar */}
 
           <div className="w-full navbar  navbarBlur  ">
-            <div className=" w-full max-w-screen-xl px-[25px] mx-auto bg-opacity-100  ">
+            <div className=" w-full max-w-screen-xl  mx-auto bg-opacity-100  ">
               <div className="flex-none lg:hidden ">
                 <label
                   htmlFor="my-drawer-3"
@@ -52,7 +90,7 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="flex-none hidden lg:block">
-                <div className=" menu menu-horizontal">{links}</div>
+                <div className=" menu menu-horizontal gap-2">{links}</div>
               </div>
               <div className="ml-5">
                 <LoginAndProfile></LoginAndProfile>
@@ -70,7 +108,7 @@ const Navbar = () => {
           ></label>
           <div className="menu p-4 w-64 sm:w-80 min-h-full bg-base-200 ">
             {/* Sidebar content here */}
-            {links}
+            {linkDrawer}
           </div>
         </div>
       </div>
