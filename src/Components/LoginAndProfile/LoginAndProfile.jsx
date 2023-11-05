@@ -8,9 +8,7 @@ const LoginAndProfile = () => {
   const { user } = useAuthContext();
   return (
     <section className="flex items-center gap-3">
-      <div>
-        <Profile></Profile>
-      </div>
+      <div>{user && <Profile></Profile>}</div>
 
       <div>
         {!user ? (

@@ -1,5 +1,5 @@
 import Slider from "../../Components/BannarWithSwiper/Slider";
-
+import TopSealFood from "../../Components/TopSealFood/TopSealFood";
 
 const Home = () => {
   return (
@@ -8,8 +8,8 @@ const Home = () => {
       <div>
         <Slider></Slider>
       </div>
-      <div className="min-h-screen">
-        
+      <div className="max-w-screen-xl mx-auto px-8 md:px-12 lg:px-10 my-10">
+        <TopSealFood></TopSealFood>
       </div>
     </div>
   );

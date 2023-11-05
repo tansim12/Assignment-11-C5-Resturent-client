@@ -20,16 +20,19 @@ const Profile = () => {
         </label>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-52"
+          className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-56"
         >
           <li>
             <a className="justify-between">
-              Profile
+              My added food
               <span className="badge badge-neutral">New</span>
             </a>
           </li>
           <li>
-            <a>Settings</a>
+            <a>Add A food item</a>
+          </li>
+          <li>
+            <a>My order</a>
           </li>
         </ul>
       </div>

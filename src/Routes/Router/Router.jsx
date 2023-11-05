@@ -6,12 +6,14 @@ import Blog from "../../Pages/Blog/Blog";
 import Register from "../../Pages/Register/Register";
 import AllFoodsItems from "../../Pages/AllFoodsItems/AllFoodsItems";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
+import FoodDetails from "../../Pages/FoodDetails/FoodDetails";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeRoot></HomeRoot>,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
@@ -28,6 +30,17 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/foodDetails/:_id",
+        element: <FoodDetails></FoodDetails>,
+        loader: async ({ params }) => {
+          const res = await axios.get(
+            `http://localhost:5000/api/v1/foodItems/${params._id}`
+          );
+          const data = res.data;
+          return data;
+        },
       },
       {
         path: "/allFoodsItems",
