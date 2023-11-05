@@ -7,6 +7,7 @@ const AddAFoodItem = () => {
     e.preventDefault();
     const form = e.target;
     const userName = form.userName.value;
+    const email = form.email.value;
     const foodName = form.foodName.value;
     const category = form.category.value;
     const price = form.price.value;
@@ -26,7 +27,7 @@ const AddAFoodItem = () => {
       foodOrigin,
       description,
       quantity,
-      foodName
+      foodName, email
     );
   };
   return (
@@ -45,7 +46,7 @@ const AddAFoodItem = () => {
           </h1>
 
           <form onSubmit={handleSubmit} className="text-black">
-            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-7">
+            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text text-white">User Name</span>
@@ -53,6 +54,21 @@ const AddAFoodItem = () => {
                 <label className="input-group">
                   <input
                     type="text"
+                    required
+                    readOnly
+                    value={user?.displayName}
+                    name="userName"
+                    className="input input-bordered w-full"
+                  />
+                </label>
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text text-white">User Email</span>
+                </label>
+                <label className="input-group">
+                  <input
+                    type="email"
                     required
                     readOnly
                     value={user?.email}
@@ -177,7 +193,7 @@ const AddAFoodItem = () => {
                   />
                 </label>
               </div>
-              <div className="form-control ">
+              <div className="form-control col-span-2 ">
                 <label className="label">
                   <span className="label-text text-white">Photo Url</span>
                 </label>

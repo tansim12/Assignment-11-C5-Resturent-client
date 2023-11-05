@@ -12,6 +12,7 @@ import MyAddedFood from "../../Pages/MyAddedFood/MyAddedFood";
 import AddAFoodItem from "../../Pages/AddAFoodItem/AddAFoodItem";
 import MyOrder from "../../Pages/MyOrder/MyOrder";
 import PurchaseForm from "../../Pages/PurchaseForm/PurchaseForm";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +53,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/purchaseForm/:_id",
-        element: <PurchaseForm></PurchaseForm>,
+        element: (
+          <PrivateRoute>
+            <PurchaseForm></PurchaseForm>
+          </PrivateRoute>
+        ),
         loader: async ({ params }) => {
           const res = await axios.get(
             `http://localhost:5000/api/v1/foodItems/${params._id}`
