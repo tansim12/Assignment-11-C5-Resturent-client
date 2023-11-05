@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import useAuthContext from "../../Hooks/useAuthContext";
 
 const Profile = () => {
@@ -23,16 +24,13 @@ const Profile = () => {
           className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-56"
         >
           <li>
-            <a className="justify-between">
-              My added food
-              <span className="badge badge-neutral">New</span>
-            </a>
+            <NavLink to={"/myAddedFood"}>My added food</NavLink>
+          </li>
+          <li className="my-2">
+            <NavLink to={"/addAFoodItem"}>Add A food item</NavLink>
           </li>
           <li>
-            <a>Add A food item</a>
-          </li>
-          <li>
-            <a>My order</a>
+            <NavLink to={"/myOrder"}>My order</NavLink>
           </li>
         </ul>
       </div>

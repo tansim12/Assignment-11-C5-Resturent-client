@@ -8,6 +8,9 @@ import AllFoodsItems from "../../Pages/AllFoodsItems/AllFoodsItems";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import FoodDetails from "../../Pages/FoodDetails/FoodDetails";
 import axios from "axios";
+import MyAddedFood from "../../Pages/MyAddedFood/MyAddedFood";
+import AddAFoodItem from "../../Pages/AddAFoodItem/AddAFoodItem";
+import MyOrder from "../../Pages/MyOrder/MyOrder";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +48,18 @@ const router = createBrowserRouter([
       {
         path: "/allFoodsItems",
         element: <AllFoodsItems></AllFoodsItems>,
+      },
+      {
+        path: "/myAddedFood",
+        element: <MyAddedFood></MyAddedFood>,
+      },
+      {
+        path: "/addAFoodItem",
+        element: <AddAFoodItem></AddAFoodItem>,
+      },
+      {
+        path: "/myOrder",
+        element: <MyOrder></MyOrder>,
       },
     ],
   },

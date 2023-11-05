@@ -1,9 +1,11 @@
+import { Helmet } from "react-helmet-async";
 import Slider from "../../Components/BannarWithSwiper/Slider";
 import TopSealFood from "../../Components/TopSealFood/TopSealFood";
 
 const Home = () => {
   return (
     <div>
+      <Helmet><title>Home</title></Helmet>
       {/* banner div slider  with swiper.js */}
       <div>
         <Slider></Slider>
