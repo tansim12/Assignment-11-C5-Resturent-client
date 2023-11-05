@@ -11,6 +11,7 @@ import axios from "axios";
 import MyAddedFood from "../../Pages/MyAddedFood/MyAddedFood";
 import AddAFoodItem from "../../Pages/AddAFoodItem/AddAFoodItem";
 import MyOrder from "../../Pages/MyOrder/MyOrder";
+import PurchaseForm from "../../Pages/PurchaseForm/PurchaseForm";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,18 @@ const router = createBrowserRouter([
         path: "/allFoodsItems",
         element: <AllFoodsItems></AllFoodsItems>,
       },
+      {
+        path: "/purchaseForm/:_id",
+        element: <PurchaseForm></PurchaseForm>,
+        loader: async ({ params }) => {
+          const res = await axios.get(
+            `http://localhost:5000/api/v1/foodItems/${params._id}`
+          );
+          const data = res.data;
+          return data;
+        },
+      },
+
       {
         path: "/myAddedFood",
         element: <MyAddedFood></MyAddedFood>,

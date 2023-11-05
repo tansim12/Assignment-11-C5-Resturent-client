@@ -1,21 +1,12 @@
 import Lottie from "lottie-react";
 import topSeal from "../../assets/topSeal.json";
 
-// import { useEffect, useState } from "react";
 import TopSellFoodCard from "./TopSellFoodCard";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 const TopSealFood = () => {
-  //   const [foodItems, setFoodItems] = useState([]);
-
-  //   useEffect(() => {
-  //     axios
-  //       .get("http://localhost:5000/api/v1/topSellFood")
-  //       .then((res) => setFoodItems(res.data));
-  //   }, []);
-
   const { data: foodItems } = useQuery({
     queryKey: ["allFoodItem"],
     queryFn: async () => {
@@ -28,14 +19,14 @@ const TopSealFood = () => {
   return (
     <div>
       <div className="flex justify-center items-center">
-        <h1 className="text-4xl text-center font-bold text-black">
+        <h1 className="text-2xl sm:text-4xl text-center font-bold text-black">
           Top selling{" "}
         </h1>
         <Lottie
           animationData={topSeal}
           loop={true}
           autoplay={true}
-          className="w-28"
+          className="w-16 sm:w-28"
         ></Lottie>
       </div>
       {/* top sell food section div  */}
@@ -46,8 +37,11 @@ const TopSealFood = () => {
       </div>
       <div className="flex justify-center items-center my-10">
         <Link
-        to={"/items"}
-        className="btn btn-md md:btn-lg  btn-neutral">Sea All</Link>
+          to={"/allFoodsItems"}
+          className="btn btn-md md:btn-lg  btn-neutral"
+        >
+          Sea All
+        </Link>
       </div>
     </div>
   );

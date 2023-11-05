@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Rating from "react-rating";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const FoodDetails = () => {
   const data = useLoaderData();
@@ -13,7 +13,7 @@ const FoodDetails = () => {
     author,
     food_origin,
     description,
-
+    _id,
     stored_date,
     quantity,
   } = data;
@@ -35,9 +35,11 @@ const FoodDetails = () => {
               </div>
               <div className="flex -mx-2 mb-4">
                 <div className="w-1/2 px-2">
-                  <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
-                    Order
-                  </button>
+                  <Link to={`/purchaseForm/${_id}`}>
+                    <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
+                      Order
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
