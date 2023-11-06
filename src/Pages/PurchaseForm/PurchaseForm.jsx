@@ -6,6 +6,8 @@ import Lottie from "lottie-react";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const PurchaseForm = () => {
   const { user } = useAuthContext();
@@ -26,7 +28,7 @@ const PurchaseForm = () => {
     const newTotalPurchase = {
       total_purchase: data?.total_purchase + newQuantity,
     };
-    console.log(newTotalPurchase);
+
     if (quantity < 1) {
       return toast.error("Quantity not less then 1");
     }
@@ -36,7 +38,38 @@ const PurchaseForm = () => {
     if (currentPrice === 0) {
       return toast.error("Stoke out");
     }
-    console.log(userName, price, date, quantity, foodName, email);
+    // console.log(userName, price, date, quantity, foodName, email );
+    // update database this info
+    const foodId = data?._id;
+    const info = { userName, price, date, quantity, foodName, email, foodId };
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Are you sere purchase this products!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Purchase it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await axios.post(
+            "http://localhost:5000/api/v1/allOrders",
+            info
+          );
+          const fetchData = await res.data;
+          if (fetchData.insertedId) {
+            Swal.fire({
+              title: "Successful",
+              text: "Your purchase successfully done.",
+              icon: "success",
+            });
+          }
+        }
+      });
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (

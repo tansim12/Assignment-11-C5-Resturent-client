@@ -6,7 +6,7 @@ const TopSellFoodCard = ({ food }) => {
 //   handleDetails
 const navigate = useNavigate()
 const handleDetails =(_id)=>{
-console.log(_id);
+
 navigate(`/foodDetails/${_id}`)
 }
 
