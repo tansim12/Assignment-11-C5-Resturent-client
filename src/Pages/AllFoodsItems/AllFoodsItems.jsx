@@ -40,11 +40,13 @@ const AllFoodsItems = () => {
     e.preventDefault();
     const search = e.target.search.value;
     setNewSearch(search);
-    setCurrentPage(1)
+    setCurrentPage(1);
   };
   return (
     <section className="">
-      <Helmet><title>All food items</title></Helmet>
+      <Helmet>
+        <title>All food items</title>
+      </Helmet>
       {/* hero section  */}
       <div>
         <div
@@ -68,8 +70,7 @@ const AllFoodsItems = () => {
                   <select
                     onChange={(e) => {
                       setNewCategory(e.target.value);
-
-                      console.log(e.target.value);
+                      setCurrentPage(1);
                     }}
                     tabIndex={0}
                     className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-black w-52"

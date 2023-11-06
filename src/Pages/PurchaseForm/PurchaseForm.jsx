@@ -10,10 +10,8 @@ import { Helmet } from "react-helmet-async";
 const PurchaseForm = () => {
   const { user } = useAuthContext();
   const data = useLoaderData();
-
   const [currentPrice, setCurrentPrice] = useState(data?.price);
-  let oldTotalPurchase = user?.total_purchase;
-  console.log(currentPrice);
+  const [newQuantity, setNewQuantity] = useState(data?.quantity);
 
   //   handleSubmit
   const handleSubmit = (e) => {
@@ -25,18 +23,27 @@ const PurchaseForm = () => {
     const price = form.price.value;
     const date = form.date.value;
     const quantity = form.quantity.value;
+    const newTotalPurchase = {
+      total_purchase: data?.total_purchase + newQuantity,
+    };
+    console.log(newTotalPurchase);
     if (quantity < 1) {
       return toast.error("Quantity not less then 1");
     }
     if (quantity > data?.quantity) {
       return toast.error(`You Can't buy more then ${data?.quantity}`);
     }
+    if (currentPrice === 0) {
+      return toast.error("Stoke out");
+    }
     console.log(userName, price, date, quantity, foodName, email);
   };
 
   return (
     <section className="min-h-[90vh] pt-16">
-      <Helmet><title>Purchase food</title></Helmet>
+      <Helmet>
+        <title>Purchase food</title>
+      </Helmet>
       <div>
         <h1 className="text-4xl text-center my-4 font-extrabold  bg-clip-text text-secondary">
           Purchase Your Food
@@ -58,7 +65,7 @@ const PurchaseForm = () => {
             <div className=" grid grid-cols-1 sm:grid-cols-2 gap-7">
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-white">User Name</span>
+                  <span className="label-text ">User Name</span>
                 </label>
                 <label className="input-group">
                   <input
@@ -73,7 +80,7 @@ const PurchaseForm = () => {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-white">User Email</span>
+                  <span className="label-text ">User Email</span>
                 </label>
                 <label className="input-group">
                   <input
@@ -89,7 +96,7 @@ const PurchaseForm = () => {
 
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text text-white">Food Name</span>
+                  <span className="label-text">Food Name</span>
                 </label>
                 <label className="input-group text-black">
                   <input
@@ -105,15 +112,14 @@ const PurchaseForm = () => {
 
               <div className="form-control ">
                 <label className="label">
-                  <span className="label-text text-white">Price</span>
+                  <span className="label-text ">Price</span>
                 </label>
                 <label className="input-group">
                   <input
                     type="number"
                     required
                     name="price"
-                    value={currentPrice.toFixed(2)}
-                    
+                    value={currentPrice * data?.quantity.toFixed(2)}
                     readOnly
                     placeholder="Price"
                     className="input input-bordered w-full"
@@ -122,20 +128,20 @@ const PurchaseForm = () => {
               </div>
               <div className="form-control ">
                 <label className="label">
-                  <span className="label-text text-white">Quantity</span>
+                  <span className="label-text ">Quantity</span>
                 </label>
                 <label className="input-group">
                   <input
-                  onChange={(e)=>{
-                    const x=  parseInt(e.target.value)
-                    console.log(x);
-                    if (x>0) {
-                      setCurrentPrice(data?.price * x)
-                    }else{
-                      setCurrentPrice(0)
-                    }
+                    onChange={(e) => {
+                      const val = parseInt(e.target.value);
 
-                  }}
+                      if (val > 0) {
+                        setCurrentPrice(data?.price * val);
+                      } else {
+                        setCurrentPrice(0);
+                      }
+                      setNewQuantity(val);
+                    }}
                     type="number"
                     required
                     name="quantity"
@@ -155,14 +161,16 @@ const PurchaseForm = () => {
                     type="date"
                     name="date"
                     required
-                   
                     className="input input-bordered w-full"
                   />
                 </label>
               </div>
             </div>
 
-            <button type="submit" className="btn btn-secondary text-white font-bold w-full my-5">
+            <button
+              type="submit"
+              className="btn btn-secondary text-white font-bold w-full my-5"
+            >
               Purchase{" "}
             </button>
           </form>

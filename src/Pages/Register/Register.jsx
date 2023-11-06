@@ -4,7 +4,7 @@ import useAuthContext from "../../Hooks/useAuthContext";
 import toast from "react-hot-toast";
 
 const Register = () => {
-  const { register } = useAuthContext();
+  const { register, newUpdateProfile } = useAuthContext();
   const navigate = useNavigate();
   const patten = /^(?=.*[A-Z])(?=.*[@#$%^&+=!]).{6,}$/;
   const capital = /[A-Z]/;
@@ -37,6 +37,7 @@ const Register = () => {
     try {
       await register(email, password)
         .then(() => {
+          newUpdateProfile(name, img);
           toast.success("Register Successfully done", { id: toastId });
           navigate("/login");
         })
