@@ -5,6 +5,7 @@ import AllFoodItemCard from "./AllFoodItemCard";
 import { FaSearch, FaFilter } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
 import NoProducts from "../../Components/NoProducts/NoProducts";
+import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 
 const AllFoodsItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -12,7 +13,7 @@ const AllFoodsItems = () => {
   const [newCategory, setNewCategory] = useState("");
   const [newSearch, setNewSearch] = useState("");
 
-  const {
+  const { isLoading,
     data: { result: food, count },
   } = useQuery({
     queryKey: [
@@ -31,7 +32,9 @@ const AllFoodsItems = () => {
     },
     initialData: { food: [], count: 0 },
   });
-
+if (isLoading) {
+  return <LoadingSkeleton></LoadingSkeleton>
+}
   const clc = Math.ceil(count / perPageItem);
   const btnArray = [...Array(clc).keys()];
   const btnNumber = btnArray?.map((i) => ++i);

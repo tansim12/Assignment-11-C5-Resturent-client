@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuthContext from "../../Hooks/useAuthContext";
 import MyOrderCard from "./MyOrderCard";
+import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 // import { useEffect, useState } from "react";
 
 const MyOrder = () => {
@@ -27,7 +28,7 @@ const MyOrder = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSkeleton></LoadingSkeleton>;
   }
 
   return (

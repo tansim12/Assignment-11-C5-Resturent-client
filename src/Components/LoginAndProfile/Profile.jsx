@@ -21,7 +21,7 @@ const Profile = () => {
         </label>
         <ul
           tabIndex={0}
-          className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-56"
+          className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-200 font-semibold  rounded-box w-56"
         >
           <li>
             <NavLink to={"/myAddedFood"}>My added food</NavLink>
