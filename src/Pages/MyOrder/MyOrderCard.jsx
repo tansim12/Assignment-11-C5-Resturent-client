@@ -1,7 +1,8 @@
 import axios from "axios";
 import { RiDeleteBin2Line } from "react-icons/ri";
+import Swal from "sweetalert2";
 
-const MyOrderCard = ({ item , refetch }) => {
+const MyOrderCard = ({ item, refetch }) => {
   const {
     description,
     foodName,
@@ -14,15 +15,37 @@ const MyOrderCard = ({ item , refetch }) => {
     foodImage,
   } = item;
 
-//   handleDelete
-const handleDelete =async(_id)=>{
-try {
-    const res = await axios.delete("")
-} catch (error) {
-    console.error(error);
-}
-
-}
+  //   handleDelete
+  const handleDelete = (_id) => {
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await axios.delete(
+            `http://localhost:5000/api/v1/allOrders/${_id}`
+          );
+          const fetchData = await res.data;
+          if (fetchData.acknowledged) {
+            refetch();
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success",
+            });
+          }
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <div className="p-4 grid  sm:grid-cols-12 max-w-screen-xl mx-auto items-center justify-center  shadow-black shadow-2xl gap-5 my-5 ">
       {/* img div  */}
@@ -77,9 +100,9 @@ try {
       </div>
       <div className="flex items-center justify-center col-span-5 sm:col-span-2 w-[100wh] sm:w-full">
         <button
-        
-        onClick={()=>handleDelete(_id)}
-        className="btn btn-error text-xl">
+          onClick={() => handleDelete(_id)}
+          className="btn btn-error text-xl"
+        >
           <RiDeleteBin2Line></RiDeleteBin2Line>
         </button>
       </div>

@@ -11,7 +11,7 @@ const MyOrder = () => {
   // useEffect(as()=>{
 
   // })
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, isFetched } = useQuery({
     queryKey: ["myOrder", user],
     queryFn: async () => {
       try {
@@ -25,17 +25,21 @@ const MyOrder = () => {
       }
     },
   });
-  console.log(data);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
- 
   return (
     <div>
       <div>
         {data?.map((item) => (
-          <MyOrderCard key={item?._id} item={item} refetch={refetch}></MyOrderCard>
+          <MyOrderCard
+            key={item?._id}
+            item={item}
+            refetch={refetch}
+            isFetched={isFetched}
+          ></MyOrderCard>
         ))}
       </div>
     </div>
