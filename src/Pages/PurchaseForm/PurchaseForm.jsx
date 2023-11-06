@@ -29,7 +29,6 @@ const PurchaseForm = () => {
       total_purchase: data?.total_purchase + newQuantity,
     };
 
-
     if (data?.quantity < 1) {
       return toast.error("This food is not available");
     }
@@ -78,19 +77,21 @@ const PurchaseForm = () => {
           );
           const fetchData = await res.data;
           if (fetchData.insertedId) {
-
-            // patch product total_purchase  count 
-            axios.patch(`http://localhost:5000/api/v1/foodItems/${data?._id}` , newTotalPurchase).then((res)=>{
-              if (res.data.acknowledged) {
-                Swal.fire({
-                  title: "Successful",
-                  text: "Your purchase successfully done.",
-                  icon: "success",
-                });
-              }
-            })
-
-           
+            // patch product total_purchase  count
+            axios
+              .patch(
+                `http://localhost:5000/api/v1/foodItems/${data?._id}`,
+                newTotalPurchase
+              )
+              .then((res) => {
+                if (res.data.acknowledged) {
+                  Swal.fire({
+                    title: "Successful",
+                    text: "Your purchase successfully done.",
+                    icon: "success",
+                  });
+                }
+              });
           }
         }
       });
@@ -105,11 +106,18 @@ const PurchaseForm = () => {
         <title>Purchase food</title>
       </Helmet>
       <div>
-        <h1 className="text-4xl text-center my-4 font-extrabold  bg-clip-text text-secondary">
-          Purchase Your Food
-        </h1>
+        <div className="mb-20">
+          <h1 className="text-4xl text-center mb-4 font-extrabold  bg-clip-text text-secondary">
+            Purchase Your Food
+          </h1>
+          <p className="w-full sm:w-2/4 mx-auto mb-4 text-center">
+            Enjoy a Delicious Culinary Experience with Our Exquisite Food
+            Selection – Savor Mouthwatering Delights, From Savory Dishes to
+            Irresistible Desserts.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-5 ">
+        <div className="grid grid-cols-1 md:grid-cols-5  ">
           <div className="col-span-2">
             <Lottie
               className=""
@@ -120,7 +128,7 @@ const PurchaseForm = () => {
           </div>
           <form
             onSubmit={handleSubmit}
-            className="text-black col-span-3 w-[90%] mx-auto"
+            className="text-black col-span-3 w-[90%] mx-auto shadow-2xl shadow-black p-4 rounded-lg"
           >
             <div className=" grid grid-cols-1 sm:grid-cols-2 gap-7">
               <div className="form-control">

@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import auth from "../utils/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
@@ -38,23 +39,39 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
   // update profile
-  const newUpdateProfile = (name , img)=>{
-    return updateProfile(auth.currentUser , {
-      displayName:name , photoURL: img || ""
-    })
-  }  
+  const newUpdateProfile = (name, img) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: img || "",
+    });
+  };
 
   // observer
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = user?.email || currentUser?.email;
       setUser(currentUser);
+      // implement jwt
+      axios
+        .post(
+          "http://localhost:5000/api/v1/jwt",
+          { email: userEmail },
+          {
+            withCredentials: true,
+          }
+        )
+        // .then((res) => {
+        //   console.log(res.data);
+        // })
+        .catch((err) => console.log(err));
+     
+
       setUserLoading(false);
     });
     return () => {
       unSubscribe();
     };
-  }, []);
-
+  }, [user?.email]);
 
   const info = {
     user,
@@ -62,7 +79,8 @@ const AuthProvider = ({ children }) => {
     register,
     login,
     logOut,
-    googleLogin,newUpdateProfile
+    googleLogin,
+    newUpdateProfile,
   };
   return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
 };
