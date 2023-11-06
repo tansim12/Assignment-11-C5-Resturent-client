@@ -29,6 +29,10 @@ const PurchaseForm = () => {
       total_purchase: data?.total_purchase + newQuantity,
     };
 
+
+    if (data?.quantity < 1) {
+      return toast.error("This food is not available");
+    }
     if (quantity < 1) {
       return toast.error("Quantity not less then 1");
     }
@@ -41,7 +45,22 @@ const PurchaseForm = () => {
     // console.log(userName, price, date, quantity, foodName, email );
     // update database this info
     const foodId = data?._id;
-    const info = { userName, price, date, quantity, foodName, email, foodId };
+    const foodImage = data?.image;
+    const description = data?.description;
+    const storedDate = data?.stored_date;
+    console.log(foodImage);
+    const info = {
+      userName,
+      price,
+      date,
+      quantity,
+      foodName,
+      email,
+      foodId,
+      foodImage,
+      description,
+      storedDate,
+    };
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -59,11 +78,19 @@ const PurchaseForm = () => {
           );
           const fetchData = await res.data;
           if (fetchData.insertedId) {
-            Swal.fire({
-              title: "Successful",
-              text: "Your purchase successfully done.",
-              icon: "success",
-            });
+
+            // patch product total_purchase  count 
+            axios.patch(`http://localhost:5000/api/v1/foodItems/${data?._id}` , newTotalPurchase).then((res)=>{
+              if (res.data.acknowledged) {
+                Swal.fire({
+                  title: "Successful",
+                  text: "Your purchase successfully done.",
+                  icon: "success",
+                });
+              }
+            })
+
+           
           }
         }
       });

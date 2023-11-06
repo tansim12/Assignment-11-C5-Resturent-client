@@ -7,7 +7,7 @@ const AllFoodItemCard = ({ food }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {food?.map((card) => (
         <div key={card?._id} className="w-full">
-          <div className="rounded-lg p-5 shadow-sm shadow-black shadow-2xl ">
+          <div className="rounded-lg p-5  shadow-black shadow-2xl ">
             <img
               alt="Home"
               src={card?.image}

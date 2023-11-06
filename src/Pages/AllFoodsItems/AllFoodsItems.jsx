@@ -4,6 +4,7 @@ import { useState } from "react";
 import AllFoodItemCard from "./AllFoodItemCard";
 import { FaSearch, FaFilter } from "react-icons/fa";
 import { Helmet } from "react-helmet-async";
+import NoProducts from "../../Components/NoProducts/NoProducts";
 
 const AllFoodsItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -113,7 +114,7 @@ const AllFoodsItems = () => {
 
       {/* card section / */}
       <div className="max-w-screen-xl mx-auto md:px-12 lg:px-10 my-10">
-        <AllFoodItemCard food={food}></AllFoodItemCard>
+        {food?.length > 0 ?<AllFoodItemCard food={food}></AllFoodItemCard> : <NoProducts></NoProducts>}
       </div>
 
       {/* button section  */}
