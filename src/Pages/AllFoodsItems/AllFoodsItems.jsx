@@ -27,14 +27,14 @@ const AllFoodsItems = () => {
 
 
   return (
-    <section>
+    <section className="">
       {/* card section / */}
-      <div>
+      <div  className="max-w-screen-xl mx-auto md:px-12 lg:px-10 my-10" >
         <AllFoodItemCard food={food}></AllFoodItemCard>
       </div>
 
       {/* button section  */}
-      <div>
+      <div className="flex justify-center items-center my-10">
         <nav className="inline-flex -space-x-px rounded-md shadow-sm dark:text-gray-100">
           <button
             onClick={() => {
@@ -68,7 +68,7 @@ const AllFoodsItems = () => {
               key={page}
               type="button"
               aria-current="page"
-              className={`inline-flex items-center px-6 py-2 text-sm font-semibold border   dark:text-gray-900 dark:border-gray-700 ${
+              className={`inline-flex items-center px-4 md:px-7 py-2 text-sm font-semibold border   dark:text-gray-900 dark:border-gray-700 ${
                 currentPage === page && "bg-secondary"
               }`}
             >
