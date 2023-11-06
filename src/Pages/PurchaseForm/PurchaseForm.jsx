@@ -10,8 +10,10 @@ import { Helmet } from "react-helmet-async";
 const PurchaseForm = () => {
   const { user } = useAuthContext();
   const data = useLoaderData();
+
   const [currentPrice, setCurrentPrice] = useState(data?.price);
   let oldTotalPurchase = user?.total_purchase;
+  console.log(currentPrice);
 
   //   handleSubmit
   const handleSubmit = (e) => {
@@ -125,7 +127,14 @@ const PurchaseForm = () => {
                 <label className="input-group">
                   <input
                   onChange={(e)=>{
-                    setCurrentPrice(currentPrice * e.target.value)
+                    const x=  parseInt(e.target.value)
+                    console.log(x);
+                    if (x>0) {
+                      setCurrentPrice(data?.price * x)
+                    }else{
+                      setCurrentPrice(0)
+                    }
+
                   }}
                     type="number"
                     required

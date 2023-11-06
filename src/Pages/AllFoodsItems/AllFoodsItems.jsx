@@ -2,21 +2,28 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import AllFoodItemCard from "./AllFoodItemCard";
-import { FaSearch ,FaFilter } from "react-icons/fa";
-
+import { FaSearch, FaFilter } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const AllFoodsItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPageItem, setPerPageItem] = useState(9);
   const [newCategory, setNewCategory] = useState("");
+  const [newSearch, setNewSearch] = useState("");
 
   const {
     data: { result: food, count },
   } = useQuery({
-    queryKey: ["allFoodItems", currentPage, perPageItem, newCategory],
+    queryKey: [
+      "allFoodItems",
+      currentPage,
+      perPageItem,
+      newCategory,
+      newSearch,
+    ],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/foodItems?page=${currentPage}&size=${perPageItem}&category=${newCategory}`
+        `http://localhost:5000/api/v1/foodItems?page=${currentPage}&size=${perPageItem}&category=${newCategory}&search=${newSearch}`
       );
       const fetchData = res.data;
       return fetchData;
@@ -32,11 +39,12 @@ const AllFoodsItems = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     const search = e.target.search.value;
-    console.log(search);
+    setNewSearch(search);
+    setCurrentPage(1)
   };
-
   return (
     <section className="">
+      <Helmet><title>All food items</title></Helmet>
       {/* hero section  */}
       <div>
         <div
@@ -49,44 +57,45 @@ const AllFoodsItems = () => {
           <div className="hero-overlay bg-opacity-70 bg-black"></div>
           <div className="hero-content text-center text-neutral-content w-full justify-center">
             <div className="w-full flex items-center justify-end">
-              
               <form
                 onSubmit={handleSearch}
                 className="w-full flex items-center justify-center "
               >
                 <div className="dropdown dropdown-hover">
-                <label tabIndex={1} className="btn m-1 text-xl">
-                  <FaFilter></FaFilter>
-                </label>
-                <select
-                  onChange={(e) => {
-                    setNewCategory(e.target.value);
+                  <label tabIndex={1} className="btn m-1 text-xl">
+                    <FaFilter></FaFilter>
+                  </label>
+                  <select
+                    onChange={(e) => {
+                      setNewCategory(e.target.value);
 
-                    console.log(e.target.value);
-                  }}
-                  tabIndex={0}
-                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-black w-52"
-                >
-                  <option disabled selected>
-                    Select your category name
-                  </option>
-                  <option className="font-bold cursor-pointer" value="Beef">
-                    Beef
-                  </option>
-                  <option
-                    className="font-bold my-3 cursor-pointer"
-                    value="Seafood"
+                      console.log(e.target.value);
+                    }}
+                    tabIndex={0}
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-black w-52"
                   >
-                    Seafood
-                  </option>
-                  <option className="font-bold cursor-pointer" value="Chicken">
-                    Chicken
-                  </option>
-                </select>
-              </div>
+                    <option disabled selected>
+                      Select your category name
+                    </option>
+                    <option className="font-bold cursor-pointer" value="Beef">
+                      Beef
+                    </option>
+                    <option
+                      className="font-bold my-3 cursor-pointer"
+                      value="Seafood"
+                    >
+                      Seafood
+                    </option>
+                    <option
+                      className="font-bold cursor-pointer"
+                      value="Chicken"
+                    >
+                      Chicken
+                    </option>
+                  </select>
+                </div>
                 <input
                   type="text"
-                  required
                   name="search"
                   placeholder="Type here"
                   className="input input-bordered input-info w-[70%] text-black "

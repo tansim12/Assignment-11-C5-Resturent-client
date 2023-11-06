@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoginWith from "../../Components/LoginWith/LoginWith";
 import useAuthContext from "../../Hooks/useAuthContext";
 import toast from "react-hot-toast";
 
 const Register = () => {
   const { register } = useAuthContext();
+  const navigate = useNavigate();
+  const patten = /^(?=.*[A-Z])(?=.*[@#$%^&+=!]).{6,}$/;
+  const capital = /[A-Z]/;
   // handleRegister
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -14,13 +17,29 @@ const Register = () => {
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
     const email = form.email.value;
+
+    // verify validation
+    if (password !== confirmPassword) {
+      return toast.error("Password don't match.");
+    }
+    if (!capital.test(password)) {
+      return toast.error("Password should be one capital letter");
+    }
+    if (password.length < 6) {
+      return toast.error("Password not should be 6 characters");
+    }
+    if (!patten.test(password)) {
+      return toast.error("Password not should be one special  characters '@'");
+    }
+
     // console.log(name, email, password, confirmPassword);
     const toastId = toast.loading("Register Successfully done");
     try {
       await register(email, password)
-        .then(() =>
-          toast.success("Register Successfully done", { id: toastId })
-        )
+        .then(() => {
+          toast.success("Register Successfully done", { id: toastId });
+          navigate("/login");
+        })
         .catch((err) => toast.error(err.message, { id: toastId }));
     } catch (error) {
       console.error(error);
@@ -85,7 +104,6 @@ const Register = () => {
                 <input
                   type="url"
                   name="img"
-                  required
                   id="hs-hero-name-2"
                   className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                   placeholder="Photo URL"
@@ -113,6 +131,7 @@ const Register = () => {
                 <input
                   type="password"
                   name="password"
+                  required
                   id="hs-hero-password-2"
                   className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                   placeholder="Password"
@@ -120,11 +139,12 @@ const Register = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium dark:text-white">
-                  <span className="sr-only">Password</span>
+                  <span className="sr-only">Confirm Password</span>
                 </label>
                 <input
                   type="password"
                   name="confirmPassword"
+                  required
                   id="hs-hero-password-2"
                   className="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 sm:p-4 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                   placeholder="Confirm-Password"

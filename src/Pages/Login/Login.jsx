@@ -8,8 +8,8 @@ import useAuthContext from "../../Hooks/useAuthContext";
 
 const Login = () => {
   const { login } = useAuthContext();
-//   const patten = /^(?=.*[A-Z])(?=.*[@#$%^&+=!]).{6,}$/;
-//   const capital = /[A-Z]/;
+  const patten = /^(?=.*[A-Z])(?=.*[@#$%^&+=!]).{6,}$/;
+  const capital = /[A-Z]/;
   const navigate = useNavigate();
   const loc = useLocation();
 
@@ -18,15 +18,15 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    // if (!capital.test(password)) {
-    //   return toast.error("Password should be one capital letter");
-    // }
-    // if (password.length < 6) {
-    //   return toast.error("Password not should be 6 characters");
-    // }
-    // if (!patten.test(password)) {
-    //   return toast.error("Password not should be one special  characters '@'");
-    // }
+    if (!capital.test(password)) {
+      return toast.error("Password should be one capital letter");
+    }
+    if (password.length < 6) {
+      return toast.error("Password not should be 6 characters");
+    }
+    if (!patten.test(password)) {
+      return toast.error("Password not should be one special  characters '@'");
+    }
     const toastId = toast.loading("Login Successfully done");
     login(email, password)
       .then(() => {
