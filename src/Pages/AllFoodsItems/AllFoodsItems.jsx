@@ -2,18 +2,21 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import AllFoodItemCard from "./AllFoodItemCard";
+import { FaSearch ,FaFilter } from "react-icons/fa";
+
 
 const AllFoodsItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPageItem, setPerPageItem] = useState(9);
+  const [newCategory, setNewCategory] = useState("");
 
   const {
     data: { result: food, count },
   } = useQuery({
-    queryKey: ["allFoodItems", currentPage, perPageItem],
+    queryKey: ["allFoodItems", currentPage, perPageItem, newCategory],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/foodItems?page=${currentPage}&size=${perPageItem}`
+        `http://localhost:5000/api/v1/foodItems?page=${currentPage}&size=${perPageItem}&category=${newCategory}`
       );
       const fetchData = res.data;
       return fetchData;
@@ -25,11 +28,81 @@ const AllFoodsItems = () => {
   const btnArray = [...Array(clc).keys()];
   const btnNumber = btnArray?.map((i) => ++i);
 
+  // handleSearch
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const search = e.target.search.value;
+    console.log(search);
+  };
 
   return (
     <section className="">
+      {/* hero section  */}
+      <div>
+        <div
+          className="hero min-h-screen"
+          style={{
+            backgroundImage:
+              "url(https://i.ibb.co/3TXhp7w/photo-1543353071-10c8ba85a904-auto-format-fit-crop-q-60-blend-000000-blend-alpha-10-blend-mode-norma.jpg)",
+          }}
+        >
+          <div className="hero-overlay bg-opacity-70 bg-black"></div>
+          <div className="hero-content text-center text-neutral-content w-full justify-center">
+            <div className="w-full flex items-center justify-end">
+              
+              <form
+                onSubmit={handleSearch}
+                className="w-full flex items-center justify-center "
+              >
+                <div className="dropdown dropdown-hover">
+                <label tabIndex={1} className="btn m-1 text-xl">
+                  <FaFilter></FaFilter>
+                </label>
+                <select
+                  onChange={(e) => {
+                    setNewCategory(e.target.value);
+
+                    console.log(e.target.value);
+                  }}
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-black w-52"
+                >
+                  <option disabled selected>
+                    Select your category name
+                  </option>
+                  <option className="font-bold cursor-pointer" value="Beef">
+                    Beef
+                  </option>
+                  <option
+                    className="font-bold my-3 cursor-pointer"
+                    value="Seafood"
+                  >
+                    Seafood
+                  </option>
+                  <option className="font-bold cursor-pointer" value="Chicken">
+                    Chicken
+                  </option>
+                </select>
+              </div>
+                <input
+                  type="text"
+                  required
+                  name="search"
+                  placeholder="Type here"
+                  className="input input-bordered input-info w-[70%] text-black "
+                />
+                <button type="submit" className="text-2xl btn-secondary btn">
+                  <FaSearch></FaSearch>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* hero end  */}
+
       {/* card section / */}
-      <div  className="max-w-screen-xl mx-auto md:px-12 lg:px-10 my-10" >
+      <div className="max-w-screen-xl mx-auto md:px-12 lg:px-10 my-10">
         <AllFoodItemCard food={food}></AllFoodItemCard>
       </div>
 

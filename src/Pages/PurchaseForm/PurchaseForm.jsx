@@ -5,6 +5,7 @@ import Lottie from "lottie-react";
 
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const PurchaseForm = () => {
   const { user } = useAuthContext();
@@ -33,6 +34,7 @@ const PurchaseForm = () => {
 
   return (
     <section className="min-h-[90vh] pt-16">
+      <Helmet><title>Purchase food</title></Helmet>
       <div>
         <h1 className="text-4xl text-center my-4 font-extrabold  bg-clip-text text-secondary">
           Purchase Your Food
