@@ -11,9 +11,11 @@ const AllFoodsItems = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPageItem, setPerPageItem] = useState(9);
   const [newCategory, setNewCategory] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
   const [newSearch, setNewSearch] = useState("");
 
-  const { isLoading,
+  const {
+    isLoading,
     data: { result: food, count },
   } = useQuery({
     queryKey: [
@@ -21,20 +23,20 @@ const AllFoodsItems = () => {
       currentPage,
       perPageItem,
       newCategory,
-      newSearch,
+      newSearch,sortOrder
     ],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/foodItems?page=${currentPage}&size=${perPageItem}&category=${newCategory}&search=${newSearch}`
+        `https://assingment-11-c5-server.vercel.app/api/v1/foodItems?page=${currentPage}&size=${perPageItem}&category=${newCategory}&search=${newSearch}&sortFild=${"price"}&sortOrder=${sortOrder}`
       );
       const fetchData = res.data;
       return fetchData;
     },
     initialData: { food: [], count: 0 },
   });
-if (isLoading) {
-  return <LoadingSkeleton></LoadingSkeleton>
-}
+  if (isLoading) {
+    return <LoadingSkeleton></LoadingSkeleton>;
+  }
   const clc = Math.ceil(count / perPageItem);
   const btnArray = [...Array(clc).keys()];
   const btnNumber = btnArray?.map((i) => ++i);
@@ -71,33 +73,68 @@ if (isLoading) {
                   <label tabIndex={1} className="btn m-1 text-xl">
                     <FaFilter></FaFilter>
                   </label>
-                  <select
-                    onChange={(e) => {
-                      setNewCategory(e.target.value);
-                      setCurrentPage(1);
-                    }}
+
+                  <ul
                     tabIndex={0}
-                    className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box text-black w-52"
+                    className="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-52"
                   >
-                    <option disabled selected>
-                      Select your category name
-                    </option>
-                    <option className="font-bold cursor-pointer" value="Beef">
-                      Beef
-                    </option>
-                    <option
-                      className="font-bold my-3 cursor-pointer"
-                      value="Seafood"
-                    >
-                      Seafood
-                    </option>
-                    <option
-                      className="font-bold cursor-pointer"
-                      value="Chicken"
-                    >
-                      Chicken
-                    </option>
-                  </select>
+                    <li>
+                      <select
+                        onChange={(e) => {
+                          setNewCategory(e.target.value);
+                          setCurrentPage(1);
+                        }}
+                        className="bg-black my-3"
+                      >
+                        <option disabled selected className="font-bold ">
+                          Category
+                        </option>
+                        <option
+                          className="font-bold cursor-pointer"
+                          value="Beef"
+                        >
+                          Beef
+                        </option>
+                        <option
+                          className="font-bold my-3 cursor-pointer"
+                          value="Seafood"
+                        >
+                          Seafood
+                        </option>
+                        <option
+                          className="font-bold cursor-pointer"
+                          value="Chicken"
+                        >
+                          Chicken
+                        </option>
+                      </select>
+                    </li>
+                    <li>
+                      <select
+                        onChange={(e) => {
+                          setSortOrder(e.target.value);
+                          setCurrentPage(1);
+                        }}
+                        className="bg-black my-3"
+                      >
+                        <option disabled selected className="font-bold ">
+                          Price
+                        </option>
+                        <option
+                          className="font-bold cursor-pointer"
+                          value="asc"
+                        >
+                          Low to high
+                        </option>
+                        <option
+                          className="font-bold my-3 cursor-pointer"
+                          value="desc"
+                        >
+                          High to low
+                        </option>
+                      </select>
+                    </li>
+                  </ul>
                 </div>
                 <input
                   type="text"
@@ -117,7 +154,11 @@ if (isLoading) {
 
       {/* card section / */}
       <div className="max-w-screen-xl mx-auto md:px-12 lg:px-10 my-10">
-        {food?.length > 0 ?<AllFoodItemCard food={food}></AllFoodItemCard> : <NoProducts></NoProducts>}
+        {food?.length > 0 ? (
+          <AllFoodItemCard food={food}></AllFoodItemCard>
+        ) : (
+          <NoProducts></NoProducts>
+        )}
       </div>
 
       {/* button section  */}

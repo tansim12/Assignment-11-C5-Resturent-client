@@ -72,7 +72,7 @@ const PurchaseForm = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const res = await axios.post(
-            "http://localhost:5000/api/v1/allOrders",
+            "https://assingment-11-c5-server.vercel.app/api/v1/allOrders",
             info
           );
           const fetchData = await res.data;
@@ -80,7 +80,7 @@ const PurchaseForm = () => {
             // patch product total_purchase  count
             axios
               .patch(
-                `http://localhost:5000/api/v1/foodItems/${data?._id}`,
+                `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${data?._id}`,
                 newTotalPurchase
               )
               .then((res) => {

@@ -30,7 +30,7 @@ const MyOrderCard = ({ item, refetch }) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const res = await axios.delete(
-            `http://localhost:5000/api/v1/allOrders/${_id}`
+            `https://assingment-11-c5-server.vercel.app/api/v1/allOrders/${_id}`
           );
           const fetchData = await res.data;
           if (fetchData.acknowledged) {
@@ -50,7 +50,9 @@ const MyOrderCard = ({ item, refetch }) => {
   return (
     <div className="p-4 grid  sm:grid-cols-12 max-w-screen-xl mx-auto items-center justify-center  shadow-black shadow-2xl gap-5 my-5 ">
       {/* img div  */}
-      <Helmet><title>My order</title></Helmet>
+      <Helmet>
+        <title>My order</title>
+      </Helmet>
       <div className=" col-span-5 text-black">
         <div className=" flex justify-center items-center sm:block">
           <img

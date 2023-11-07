@@ -9,7 +9,7 @@ const HomeRoot = () => {
       <div className="">
         <Navbar></Navbar>
       </div>
-      <div className="mt-20 min-h-[38vh]">
+      <div className="mt-20">
       <Outlet></Outlet>
       </div>
       <div className="mt-20">

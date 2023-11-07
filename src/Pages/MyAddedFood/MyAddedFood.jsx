@@ -15,7 +15,7 @@ const MyAddedFood = () => {
     queryFn: async () => {
       try {
         const res = await instance.get(
-          `http://localhost:5000/api/v1/userAddNewFoods?email=${user?.email}`
+          `https://assingment-11-c5-server.vercel.app/api/v1/userAddNewFoods?email=${user?.email}`
         );
         const fetchData = await res.data;
         return fetchData;
@@ -31,7 +31,8 @@ const MyAddedFood = () => {
         <title>My added food</title>
       </Helmet>
 
-        {data?.length === 0 ? <div className="mt-20 p-5">
+      {data?.length === 0 ? (
+        <div className="mt-20 p-5">
           <NoProducts></NoProducts>
           <div className="flex justify-center items-center my-10">
             <Lottie
@@ -40,17 +41,17 @@ const MyAddedFood = () => {
             ></Lottie>
           </div>
         </div>
-      
-:
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-28 ">
-        {data?.map((card) => (
-          <AllfoodItemCardDiv
-            key={card?._id}
-            card={card}
-            btnValue={"Update"}
-          ></AllfoodItemCardDiv>
-        ))}
-      </div>}
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-28 ">
+          {data?.map((card) => (
+            <AllfoodItemCardDiv
+              key={card?._id}
+              card={card}
+              btnValue={"Update"}
+            ></AllfoodItemCardDiv>
+          ))}
+        </div>
+      )}
     </section>
   );
 };

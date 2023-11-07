@@ -4,8 +4,9 @@ import TopSealFood from "../../Components/TopSealFood/TopSealFood";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./gsapAnimation.css";
+import "./gsapAnimation.css"
 import { useEffect } from "react";
+import Contact from "../../Components/Contact/Contact";
 gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
@@ -14,7 +15,7 @@ const Home = () => {
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#main", // Element that triggers the animation
-        // markers:true,
+        markers:true,
         start: "50% 50%",
         end: "100% 100%",
         scrub: 2,
@@ -87,6 +88,11 @@ const Home = () => {
           <h1 id="bottom-h1">TANSIM</h1>
         </div>
       </div>
+      </div>
+
+      {/* contact section  */}
+      <div className="my-10">
+        <Contact></Contact>
       </div>
       
     </div>
