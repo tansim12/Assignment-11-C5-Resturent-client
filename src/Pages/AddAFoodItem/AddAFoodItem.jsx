@@ -3,11 +3,12 @@ import useAuthContext from "../../Hooks/useAuthContext";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AddAFoodItem = () => {
   const { user } = useAuthContext();
   const [categoryValue, setCategoryValue] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // handleSubmit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +44,7 @@ const AddAFoodItem = () => {
       email,
       total_purchase: 0,
     };
-    
+
     //  post by foodItems api
     try {
       const res = await axios.post(
@@ -51,10 +52,17 @@ const AddAFoodItem = () => {
         info
       );
       const fetchData = await res.data;
-      console.log(fetchData);
+
       if (fetchData.acknowledged) {
-        toast.success("Food Added Successfully")
-        navigate("/allFoodsItems")
+        // user new add food collection
+        axios
+          .post("http://localhost:5000/api/v1/userAddNewFoods" , info)
+          .then((res) => {
+            if (res.data.acknowledged) {
+              toast.success("Food Added Successfully");
+              navigate("/allFoodsItems");
+            }
+          });
       }
     } catch (error) {
       console.error(error);
@@ -71,6 +79,9 @@ const AddAFoodItem = () => {
     >
       <div className="flex justify-center items-center min-h-[100vh] sm:p-0 p-3 py-4">
         <div>
+          <Helmet>
+            <title>Add a new food</title>
+          </Helmet>
           <h1 className="text-4xl text-center my-4 font-extrabold  bg-clip-text text-secondary">
             Add Your Food
           </h1>
@@ -222,7 +233,6 @@ const AddAFoodItem = () => {
                     type="date"
                     name="date"
                     required
-                    
                     className="input input-bordered w-full"
                   />
                 </label>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import Swal from "sweetalert2";
 
@@ -49,6 +50,7 @@ const MyOrderCard = ({ item, refetch }) => {
   return (
     <div className="p-4 grid  sm:grid-cols-12 max-w-screen-xl mx-auto items-center justify-center  shadow-black shadow-2xl gap-5 my-5 ">
       {/* img div  */}
+      <Helmet><title>My order</title></Helmet>
       <div className=" col-span-5 text-black">
         <div className=" flex justify-center items-center sm:block">
           <img
