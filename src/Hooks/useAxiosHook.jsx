@@ -14,7 +14,6 @@ const useAxiosHook = () => {
   useEffect(() => {
     instance.interceptors.response.use(
       (res) => {
-        
         return res;
       },
       (error) => {
@@ -34,7 +33,6 @@ const useAxiosHook = () => {
       }
     );
   }, [logOut, navigate]);
-  
 
   return instance;
 };

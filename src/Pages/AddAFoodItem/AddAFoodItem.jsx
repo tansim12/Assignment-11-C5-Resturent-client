@@ -25,11 +25,14 @@ const AddAFoodItem = () => {
     if (!categoryValue) {
       return toast.error("Select your Category");
     }
-    if (price < 0) {
+    if (price <= 0) {
       return toast.error("Price should be more then 0");
     }
     if (rating > 5 || rating < 0) {
       return toast.error("Rating should be inside 1 to 5");
+    }
+    if (quantity <= 0) {
+      return toast.error("Quantity should not less then 1");
     }
     const info = {
       category: categoryValue,
@@ -87,8 +90,8 @@ const AddAFoodItem = () => {
           </h1>
 
           <form onSubmit={handleSubmit} className="text-black">
-            <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="form-control">
+            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+              <div className="form-control ">
                 <label className="label">
                   <span className="label-text text-white">User Name</span>
                 </label>
@@ -237,7 +240,7 @@ const AddAFoodItem = () => {
                   />
                 </label>
               </div>
-              <div className="form-control col-span-2 ">
+              <div className="form-control sm:col-span-2 ">
                 <label className="label">
                   <span className="label-text text-white">Photo Url</span>
                 </label>
