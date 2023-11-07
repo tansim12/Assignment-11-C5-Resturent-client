@@ -14,21 +14,27 @@ const useAxiosHook = () => {
   useEffect(() => {
     instance.interceptors.response.use(
       (res) => {
+        console.log(res);
         return res;
       },
       (error) => {
         if (error.response.status === 401 || error.response.status === 403) {
+          console.log("Unauthorized or Forbidden request. Logging out...");
           logOut()
             .then(() => {
+              console.log("Logged out successfully");
               toast.error("Log Out");
               navigate("/login");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              console.log("Error during logout:", err);
+            });
         }
-        console.log(error);
+        console.log("Request error:", error);
       }
     );
   }, [logOut, navigate]);
+  
 
   return instance;
 };

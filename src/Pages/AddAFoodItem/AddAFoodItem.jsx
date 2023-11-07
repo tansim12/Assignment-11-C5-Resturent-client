@@ -27,14 +27,15 @@ const AddAFoodItem = () => {
       foodOrigin,
       description,
       quantity,
-      foodName, email
+      foodName,
+      email
     );
   };
   return (
     <section
       style={{
         backgroundImage: "url(https://i.ibb.co/8BJBcfX/cool-background-2.png)",
-        backgroundSize: "cover", // Adjust the background styles as needed
+        backgroundSize: "cover", 
         backgroundRepeat: "no-repeat",
       }}
       className="min-h-[90vh] pt-16"

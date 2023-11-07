@@ -15,6 +15,7 @@ export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userLoading, setUserLoading] = useState(true);
+  
   // create user
   const register = (email, password) => {
     setUserLoading(true);
@@ -52,7 +53,8 @@ const AuthProvider = ({ children }) => {
       const userEmail = user?.email || currentUser?.email;
       setUser(currentUser);
       // implement jwt
-      axios
+      if (currentUser) {
+        axios
         .post(
           "http://localhost:5000/api/v1/jwt",
           { email: userEmail },
@@ -64,6 +66,7 @@ const AuthProvider = ({ children }) => {
         //   console.log(res.data);
         // })
         .catch((err) => console.log(err));
+      }
      
 
       setUserLoading(false);
@@ -71,7 +74,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unSubscribe();
     };
-  }, [user?.email]);
+  }, []);
 
   const info = {
     user,
