@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import useAuthContext from "../../Hooks/useAuthContext";
+import LogOut from "../Log out/LogOut";
 
 const Profile = () => {
   const { user } = useAuthContext();
@@ -31,6 +32,9 @@ const Profile = () => {
           </li>
           <li>
             <NavLink to={"/myOrder"}>My order</NavLink>
+          </li>
+          <li className="flex justify-center items-center my-2 ">
+            <LogOut></LogOut>
           </li>
         </ul>
       </div>

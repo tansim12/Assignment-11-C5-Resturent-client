@@ -1,5 +1,3 @@
-
-
 const NoProducts = () => {
   return (
     <div>

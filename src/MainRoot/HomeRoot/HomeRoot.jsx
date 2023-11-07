@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 
 import Navbar from "../../Components/Navbar.jsx/Navbar";
+import Footer from "../../Components/Footer/Footer";
 
 const HomeRoot = () => {
   return (
@@ -8,8 +9,11 @@ const HomeRoot = () => {
       <div className="">
         <Navbar></Navbar>
       </div>
-      <div className="mt-20">
+      <div className="mt-20 min-h-[38vh]">
       <Outlet></Outlet>
+      </div>
+      <div className="mt-20">
+        <Footer></Footer>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 import toast from "react-hot-toast";
 import useAuthContext from "../../Hooks/useAuthContext";
 import useAxiosHook from "../../Hooks/useAxiosHook";
+import { AiOutlineLogout } from 'react-icons/ai';
+
 const LogOut = () => {
   const { logOut } = useAuthContext();
   const instance = useAxiosHook();
@@ -26,9 +28,9 @@ const LogOut = () => {
     <div>
       <div
         onClick={handleLogout}
-        className="flex items-center justify-center gap-2 bg-secondary btn-sm btn sm:btn-md transition-all ease-in delay-100 border-none hover:btn-neutral text-white font-bold  "
+        className="text-red-600 font-bold  flex justify-between items-center text-lg"
       >
-        Log out
+       <span className="mr-3"> Log out </span> <span><AiOutlineLogout></AiOutlineLogout></span>
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
-import GsapAnimation from "../../Components/Gsap/GsapAnimation";
+
 
 
 const Blog = () => {
  
 
   return (
-    <section>
-      <GsapAnimation></GsapAnimation>
+    <section className="max-w-screen-xl mx-5 sm:mx-10 my-20">
+      
     </section>
   );
 };
