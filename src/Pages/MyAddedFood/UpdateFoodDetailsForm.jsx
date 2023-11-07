@@ -56,7 +56,6 @@ const UpdateFoodDetailsForm = ({ card }) => {
       food_name: foodName,
       email,
       _id: card?._id,
-      //   total_purchase: 0,
     };
     const toastId = toast.loading("Update successfully done");
 
@@ -69,10 +68,11 @@ const UpdateFoodDetailsForm = ({ card }) => {
       );
       const fetchData = await res.data;
       if (fetchData.modifiedCount > 0) {
-        console.log();
+        toast.success("Update successfully done", { id: toastId });
+        navigate("/allFoodsItems");
       }
     } catch (error) {
-      console.error(error);
+      toast.error(error, { id: toastId });
     }
     try {
       // second userAddNewFoods collection
@@ -96,7 +96,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
         <div className=" grid grid-cols-1  gap-4 ">
           <div className="form-control ">
             <label className="label">
-              <span className="label-text text-white">User Name</span>
+              <span className="label-text ">User Name</span>
             </label>
             <label className="input-group">
               <input
@@ -111,7 +111,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">User Email</span>
+              <span className="label-text ">User Email</span>
             </label>
             <label className="input-group">
               <input
@@ -127,7 +127,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Food Name</span>
+              <span className="label-text ">Food Name</span>
             </label>
             <label className="input-group">
               <input
@@ -143,7 +143,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
 
           <div className="form-control">
             <label className="label">
-              <span className="label-text text-white">Short description</span>
+              <span className="label-text ">Short description</span>
             </label>
             <label className="input-group">
               <input
@@ -158,7 +158,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control ">
             <label className="label">
-              <span className="label-text text-white">Category</span>
+              <span className="label-text ">Category</span>
             </label>
             <select
               onChange={(e) => {
@@ -176,7 +176,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control ">
             <label className="label">
-              <span className="label-text text-white">Food Origin</span>
+              <span className="label-text ">Food Origin</span>
             </label>
             <label className="input-group">
               <input
@@ -191,7 +191,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control ">
             <label className="label">
-              <span className="label-text text-white">Price</span>
+              <span className="label-text ">Price</span>
             </label>
             <label className="input-group">
               <input
@@ -206,7 +206,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control ">
             <label className="label">
-              <span className="label-text text-white">Quantity</span>
+              <span className="label-text ">Quantity</span>
             </label>
             <label className="input-group">
               <input
@@ -221,7 +221,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control ">
             <label className="label">
-              <span className="label-text text-white">Rating</span>
+              <span className="label-text ">Rating</span>
             </label>
             <label className="input-group">
               <input
@@ -236,7 +236,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control ">
             <label className="label">
-              <span className="label-text text-white">Date </span>
+              <span className="label-text ">Date </span>
             </label>
             <label className="input-group">
               <input
@@ -249,7 +249,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           </div>
           <div className="form-control sm:col-span-2 ">
             <label className="label">
-              <span className="label-text text-white">Photo Url</span>
+              <span className="label-text ">Photo Url</span>
             </label>
             <label className="input-group">
               <input
