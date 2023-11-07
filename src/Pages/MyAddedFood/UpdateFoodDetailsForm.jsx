@@ -1,5 +1,5 @@
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useAuthContext from "../../Hooks/useAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -268,6 +268,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
           Update
         </button>
       </form>
+      
     </div>
   );
 };

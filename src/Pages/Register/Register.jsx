@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LoginWith from "../../Components/LoginWith/LoginWith";
 import useAuthContext from "../../Hooks/useAuthContext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Register = () => {
   const { register, newUpdateProfile } = useAuthContext();
@@ -36,10 +37,21 @@ const Register = () => {
     const toastId = toast.loading("Register Successfully done");
     try {
       await register(email, password)
-        .then(() => {
+        .then(async (result) => {
           newUpdateProfile(name, img);
-          toast.success("Register Successfully done", { id: toastId });
-          navigate("/login");
+          try {
+            const res = await axios.post(
+              "https://assingment-11-c5-server.vercel.app/api/v1/registerUserInfo",
+              result?.user
+            );
+            const fetchData = await res.data;
+            if (fetchData) {
+              toast.success("Register Successfully done", { id: toastId });
+              navigate("/login");
+            }
+          } catch (error) {
+            console.error(error);
+          }
         })
         .catch((err) => toast.error(err.message, { id: toastId }));
     } catch (error) {
