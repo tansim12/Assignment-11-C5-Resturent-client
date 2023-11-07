@@ -10,12 +10,12 @@ import {
 import { createContext, useEffect, useState } from "react";
 import auth from "../utils/firebase.config";
 import axios from "axios";
-
 export const AuthContext = createContext(null);
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [userLoading, setUserLoading] = useState(true);
-  
+
   // create user
   const register = (email, password) => {
     setUserLoading(true);
@@ -55,19 +55,18 @@ const AuthProvider = ({ children }) => {
       // implement jwt
       if (currentUser) {
         axios
-        .post(
-          "http://localhost:5000/api/v1/jwt",
-          { email: userEmail },
-          {
-            withCredentials: true,
-          }
-        )
-        // .then((res) => {
-        //   console.log(res.data);
-        // })
-        .catch((err) => console.log(err));
+          .post(
+            "http://localhost:5000/api/v1/jwt",
+            { email: userEmail },
+            {
+              withCredentials: true,
+            }
+          )
+          // .then((res) => {
+          //   console.log(res.data);
+          // })
+          .catch((err) => console.log(err));
       }
-     
 
       setUserLoading(false);
     });

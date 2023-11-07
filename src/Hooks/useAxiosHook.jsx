@@ -14,7 +14,7 @@ const useAxiosHook = () => {
   useEffect(() => {
     instance.interceptors.response.use(
       (res) => {
-        console.log(res);
+        
         return res;
       },
       (error) => {

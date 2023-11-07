@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+// import axios from "axios";
 import useAuthContext from "../../Hooks/useAuthContext";
 import MyOrderCard from "./MyOrderCard";
 import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";

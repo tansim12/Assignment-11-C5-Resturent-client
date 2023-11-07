@@ -1,41 +1,70 @@
+import { useState } from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddAFoodItem = () => {
   const { user } = useAuthContext();
+  const [categoryValue, setCategoryValue] = useState("");
+  const navigate = useNavigate()
   // handleSubmit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const userName = form.userName.value;
     const email = form.email.value;
     const foodName = form.foodName.value;
-    const category = form.category.value;
-    const price = form.price.value;
+    const price = parseInt(form.price.value);
     const description = form.description.value;
     const foodOrigin = form.foodOrigin.value;
     const img = form.img.value;
-    const rating = form.rating.value;
+    const rating = parseInt(form.rating.value);
     const date = form.date.value;
-    const quantity = form.quantity.value;
-    console.log(
-      userName,
-      category,
+    const quantity = parseInt(form.quantity.value);
+    if (!categoryValue) {
+      return toast.error("Select your Category");
+    }
+    if (price < 0) {
+      return toast.error("Price should be more then 0");
+    }
+    if (rating > 5 || rating < 0) {
+      return toast.error("Rating should be inside 1 to 5");
+    }
+    const info = {
+      category: categoryValue,
       price,
-      img,
+      image: img,
       rating,
-      date,
-      foodOrigin,
+      stored_date: date,
+      food_origin: foodOrigin,
       description,
       quantity,
-      foodName,
-      email
-    );
+      food_name: foodName,
+      email,
+      total_purchase: 0,
+    };
+    
+    //  post by foodItems api
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/v1/foodItems",
+        info
+      );
+      const fetchData = await res.data;
+      console.log(fetchData);
+      if (fetchData.acknowledged) {
+        toast.success("Food Added Successfully")
+        navigate("/allFoodsItems")
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <section
       style={{
         backgroundImage: "url(https://i.ibb.co/8BJBcfX/cool-background-2.png)",
-        backgroundSize: "cover", 
+        backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
       className="min-h-[90vh] pt-16"
@@ -73,7 +102,7 @@ const AddAFoodItem = () => {
                     required
                     readOnly
                     value={user?.email}
-                    name="userName"
+                    name="email"
                     className="input input-bordered w-full"
                   />
                 </label>
@@ -114,15 +143,19 @@ const AddAFoodItem = () => {
                 <label className="label">
                   <span className="label-text text-white">Category</span>
                 </label>
-                <label className="input-group">
-                  <input
-                    type="text"
-                    required
-                    name="category"
-                    placeholder="Category"
-                    className="input input-bordered w-full"
-                  />
-                </label>
+                <select
+                  onChange={(e) => {
+                    setCategoryValue(e.target.value);
+                  }}
+                  className="select select-primary w-full max-w-xs"
+                >
+                  <option disabled selected>
+                    Select Category
+                  </option>
+                  <option value="Beef">Beef</option>
+                  <option value="Chicken">Chicken</option>
+                  <option value="Seafood">Seafood</option>
+                </select>
               </div>
               <div className="form-control ">
                 <label className="label">
@@ -189,7 +222,7 @@ const AddAFoodItem = () => {
                     type="date"
                     name="date"
                     required
-                    // placeholder=" phone, computer etc"
+                    
                     className="input input-bordered w-full"
                   />
                 </label>

@@ -13,7 +13,7 @@ const LogOut = () => {
           instance.post("/removeCookie").then((res) => {
             console.log(res);
             if (res.data.success) {
-              toast.success("Login Successfully done", { id: toastId });
+              toast.success("Lod out Successfully done", { id: toastId });
             }
           });
         })
