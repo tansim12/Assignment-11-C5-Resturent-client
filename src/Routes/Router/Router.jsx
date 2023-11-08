@@ -58,13 +58,13 @@ const router = createBrowserRouter([
             <PurchaseForm></PurchaseForm>
           </PrivateRoute>
         ),
-        loader: async ({ params }) => {
-          const res = await axios.get(
-            `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${params._id}`
-          );
-          const data = res.data;
-          return data;
-        },
+        // loader: async ({ params }) => {
+        //   const res = await axios.get(
+        //     `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${params._id}`
+        //   );
+        //   const data = res.data;
+        //   return data;
+        // },
       },
 
       {

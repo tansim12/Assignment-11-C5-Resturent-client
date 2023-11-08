@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useAuthContext from "../../Hooks/useAuthContext";
 import purchase from "../../assets/purchase.json";
 import Lottie from "lottie-react";
@@ -8,10 +8,26 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosHook from "../../Hooks/useAxiosHook";
 
 const PurchaseForm = () => {
   const { user } = useAuthContext();
-  const data = useLoaderData();
+  const instance = useAxiosHook();
+  const { _id } = useParams();
+  const { data } = useQuery({
+    queryKey: ["purchaseFood", _id],
+    queryFn: async () => {
+      try {
+        const res = await instance.get(`/foodItems/${_id}`);
+        const fetchData = await res.data;
+        return fetchData;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
   const [currentPrice, setCurrentPrice] = useState(data?.price);
   const [newQuantity, setNewQuantity] = useState(data?.quantity);
 
@@ -187,7 +203,7 @@ const PurchaseForm = () => {
                     type="number"
                     required
                     name="price"
-                    value={currentPrice * data?.quantity.toFixed(2)}
+                    value={currentPrice || data?.price * data?.quantity.toFixed(2)}
                     readOnly
                     placeholder="Price"
                     className="input input-bordered w-full"
@@ -204,6 +220,7 @@ const PurchaseForm = () => {
                       const val = parseInt(e.target.value);
 
                       if (val > 0) {
+                        console.log(currentPrice);
                         setCurrentPrice(data?.price * val);
                       } else {
                         setCurrentPrice(0);

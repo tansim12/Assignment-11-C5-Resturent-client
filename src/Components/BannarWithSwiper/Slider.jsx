@@ -55,8 +55,6 @@ const Slider = () => {
     },
   ];
 
-  console.log(restaurantData);
-
   return (
     <>
       <Swiper
