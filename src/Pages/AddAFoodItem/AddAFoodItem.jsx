@@ -51,24 +51,15 @@ const AddAFoodItem = () => {
     //  post by foodItems api
     try {
       const res = await axios.post(
-        "https://assingment-11-c5-server.vercel.app/api/v1/foodItems",
+        "http://localhost:5000/api/v1/foodItems",
         info
       );
       const fetchData = await res.data;
 
       if (fetchData.acknowledged) {
         // user new add food collection
-        axios
-          .post(
-            "https://assingment-11-c5-server.vercel.app/api/v1/userAddNewFoods",
-            info
-          )
-          .then((res) => {
-            if (res.data.acknowledged) {
-              toast.success("Food Added Successfully");
-              navigate("/allFoodsItems");
-            }
-          });
+        toast.success("Food Added Successfully");
+        navigate("/allFoodsItems");
       }
     } catch (error) {
       console.error(error);

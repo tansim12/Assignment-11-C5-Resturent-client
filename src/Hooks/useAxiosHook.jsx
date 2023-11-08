@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const instance = axios.create({
-  baseURL: "https://assingment-11-c5-server.vercel.app/api/v1",
+  baseURL: "http://localhost:5000/api/v1",
   withCredentials: true,
 });
 const useAxiosHook = () => {

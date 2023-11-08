@@ -10,9 +10,7 @@ const TopSealFood = () => {
   const { data: foodItems } = useQuery({
     queryKey: ["allFoodItem"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://assingment-11-c5-server.vercel.app/api/v1/topSellFood"
-      );
+      const res = await axios.get("http://localhost:5000/api/v1/topSellFood");
       const fetchData = await res.data;
       return fetchData;
     },

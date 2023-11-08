@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         element: <FoodDetails></FoodDetails>,
         loader: async ({ params }) => {
           const res = await axios.get(
-            `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${params._id}`
+            `http://localhost:5000/api/v1/foodItems/${params._id}`
           );
           const data = res.data;
           return data;
@@ -58,22 +58,11 @@ const router = createBrowserRouter([
             <PurchaseForm></PurchaseForm>
           </PrivateRoute>
         ),
-        // loader: async ({ params }) => {
-        //   const res = await axios.get(
-        //     `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${params._id}`
-        //   );
-        //   const data = res.data;
-        //   return data;
-        // },
       },
 
       {
         path: "/myAddedFood",
-        element: (
-          <PrivateRoute>
-            <MyAddedFood></MyAddedFood>
-          </PrivateRoute>
-        ),
+        element: <MyAddedFood></MyAddedFood>,
       },
       {
         path: "/addAFoodItem",
@@ -86,9 +75,9 @@ const router = createBrowserRouter([
       {
         path: "/myOrder",
         element: (
-          <PrivateRoute>
+          
             <MyOrder></MyOrder>
-          </PrivateRoute>
+         
         ),
       },
     ],

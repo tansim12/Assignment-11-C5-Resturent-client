@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { GrLinkNext } from "react-icons/gr";
 import UpdateButton from "../MyAddedFood/UpdateButton";
 
-const AllfoodItemCardDiv = ({ card, btnValue ,refetch }) => {
+const AllfoodItemCardDiv = ({ card, btnValue ,refetch  }) => {
   return (
     <div key={card?._id} className="w-full">
       <div className="rounded-lg p-5  shadow-black shadow-2xl ">

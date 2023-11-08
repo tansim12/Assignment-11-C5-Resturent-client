@@ -6,17 +6,18 @@ import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 import NoProducts from "../../Components/NoProducts/NoProducts";
 import Lottie from "lottie-react";
 import noFound from "../../assets/nodataFound.json";
-import useAxiosHook from "../../Hooks/useAxiosHook";
+
+import axios from "axios";
 
 const MyOrder = () => {
   const { user } = useAuthContext();
-  const instance = useAxiosHook();
+ 
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["myOrder", user],
     queryFn: async () => {
       try {
-        const res = await instance.get(`/allOrders?email=${user?.email}`);
+        const res = await axios.get(`http://localhost:5000/api/v1/allOrders?email=${user?.email}`);
         const fetchData = await res.data;
         return fetchData;
       } catch (error) {

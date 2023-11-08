@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAuthContext from "../../Hooks/useAuthContext";
 import purchase from "../../assets/purchase.json";
 import Lottie from "lottie-react";
@@ -13,13 +13,14 @@ import useAxiosHook from "../../Hooks/useAxiosHook";
 
 const PurchaseForm = () => {
   const { user } = useAuthContext();
+  const navigate = useNavigate();
   const instance = useAxiosHook();
   const { _id } = useParams();
   const { data } = useQuery({
     queryKey: ["purchaseFood", _id],
     queryFn: async () => {
       try {
-        const res = await instance.get(`/foodItems/${_id}`);
+        const res = await instance.get(`/foodItemsFindPurchaseForm/${_id}`);
         const fetchData = await res.data;
         return fetchData;
       } catch (error) {
@@ -88,7 +89,7 @@ const PurchaseForm = () => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const res = await axios.post(
-            "https://assingment-11-c5-server.vercel.app/api/v1/allOrders",
+            "http://localhost:5000/api/v1/allOrders",
             info
           );
           const fetchData = await res.data;
@@ -96,11 +97,12 @@ const PurchaseForm = () => {
             // patch product total_purchase  count
             axios
               .patch(
-                `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${data?._id}`,
+                `http://localhost:5000/api/v1/foodItems/${data?._id}`,
                 newTotalPurchase
               )
               .then((res) => {
                 if (res.data.acknowledged) {
+                  navigate("/myOrder");
                   Swal.fire({
                     title: "Successful",
                     text: "Your purchase successfully done.",
@@ -203,7 +205,9 @@ const PurchaseForm = () => {
                     type="number"
                     required
                     name="price"
-                    value={currentPrice || data?.price * data?.quantity.toFixed(2)}
+                    value={
+                      currentPrice || data?.price * data?.quantity.toFixed(2)
+                    }
                     readOnly
                     placeholder="Price"
                     className="input input-bordered w-full"

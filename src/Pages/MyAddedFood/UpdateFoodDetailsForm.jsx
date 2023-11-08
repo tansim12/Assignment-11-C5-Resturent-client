@@ -59,31 +59,15 @@ const UpdateFoodDetailsForm = ({ card, refetch }) => {
     };
     const toastId = toast.loading("Update successfully done");
 
-    // update 2 side  first foodItems collection and userAddNewFoods collection
+    // update 2 side  first foodItems collection
     try {
       // first foodItems collection
       const res = await axios.put(
-        "https://assingment-11-c5-server.vercel.app/api/v1/foodItems",
+        `http://localhost:5000/api/v1/foodItems/${card?._id}`,
         info
       );
       const fetchData = await res.data;
-      if (fetchData.modifiedCount > 0) {
-        toast.success("Update successfully done", { id: toastId });
-        refetch();
-        navigate("/allFoodsItems");
-      }
-    } catch (error) {
-      toast.error(error, { id: toastId });
-    }
-    try {
-      // second userAddNewFoods collection
-
-      const res = await axios.put(
-        "https://assingment-11-c5-server.vercel.app/api/v1/userAddNewFoods",
-        info
-      );
-      const fetchData = await res.data;
-      if (fetchData.modifiedCount > 0) {
+      if (fetchData || fetchData.modifiedCount > 0) {
         toast.success("Update successfully done", { id: toastId });
         refetch();
         navigate("/allFoodsItems");
