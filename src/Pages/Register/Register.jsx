@@ -41,7 +41,7 @@ const Register = () => {
           newUpdateProfile(name, img);
           try {
             const res = await axios.post(
-              "http://localhost:5000/api/v1/registerUserInfo",
+              "https://assingment-11-c5-server.vercel.app/api/v1/registerUserInfo",
               result?.user
             );
             const fetchData = await res.data;

@@ -11,13 +11,14 @@ import axios from "axios";
 
 const MyOrder = () => {
   const { user } = useAuthContext();
- 
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["myOrder", user],
     queryFn: async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/v1/allOrders?email=${user?.email}`);
+        const res = await axios.get(
+          `https://assingment-11-c5-server.vercel.app/api/v1/allOrders?email=${user?.email}`
+        );
         const fetchData = await res.data;
         return fetchData;
       } catch (error) {

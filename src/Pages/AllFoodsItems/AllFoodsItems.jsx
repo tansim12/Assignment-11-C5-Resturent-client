@@ -28,7 +28,7 @@ const AllFoodsItems = () => {
     ],
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/foodItems?page=${currentPage}&size=${perPageItem}&category=${newCategory}&search=${newSearch}&sortFild=${"price"}&sortOrder=${sortOrder}`
+        `https://assingment-11-c5-server.vercel.app/api/v1/foodItems?page=${currentPage}&size=${perPageItem}&category=${newCategory}&search=${newSearch}&sortFild=${"price"}&sortOrder=${sortOrder}`
       );
       const fetchData = res.data;
       return fetchData;

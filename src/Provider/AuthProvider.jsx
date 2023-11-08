@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
       if (currentUser) {
         axios
           .post(
-            "http://localhost:5000/api/v1/jwt",
+            "https://assingment-11-c5-server.vercel.app/api/v1/jwt",
             { email: userEmail },
             {
               withCredentials: true,

@@ -30,7 +30,7 @@ const MyOrderCard = ({ item, refetch }) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const res = await axios.delete(
-            `http://localhost:5000/api/v1/allOrders/${_id}`
+            `https://assingment-11-c5-server.vercel.app/api/v1/allOrders/${_id}`
           );
           const fetchData = await res.data;
           if (fetchData.acknowledged) {

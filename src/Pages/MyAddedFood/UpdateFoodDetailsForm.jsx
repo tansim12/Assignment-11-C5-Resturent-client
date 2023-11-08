@@ -63,7 +63,7 @@ const UpdateFoodDetailsForm = ({ card, refetch }) => {
     try {
       // first foodItems collection
       const res = await axios.put(
-        `http://localhost:5000/api/v1/foodItems/${card?._id}`,
+        `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${card?._id}`,
         info
       );
       const fetchData = await res.data;

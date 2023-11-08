@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         element: <FoodDetails></FoodDetails>,
         loader: async ({ params }) => {
           const res = await axios.get(
-            `http://localhost:5000/api/v1/foodItems/${params._id}`
+            `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${params._id}`
           );
           const data = res.data;
           return data;
@@ -74,11 +74,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/myOrder",
-        element: (
-          
-            <MyOrder></MyOrder>
-         
-        ),
+        element: <MyOrder></MyOrder>,
       },
     ],
   },

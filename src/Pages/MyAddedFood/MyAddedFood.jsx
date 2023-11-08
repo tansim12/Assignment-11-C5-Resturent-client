@@ -16,7 +16,7 @@ const MyAddedFood = () => {
     queryFn: async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v1/foodItems?email=${user?.email}`
+          `https://assingment-11-c5-server.vercel.app/api/v1/foodItems?email=${user?.email}`
         );
         const fetchData = await res.data;
         return fetchData;
