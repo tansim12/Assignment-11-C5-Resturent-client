@@ -1,14 +1,13 @@
 import Lottie from "lottie-react";
 import toast from "react-hot-toast";
-import contactAnimation from '../../assets/contactAnimation.json'
-
+import contactAnimation from ".././assets/contactAnimation.json"
 
 const Contact = () => {
-    // handleContact
-    const handleContact =(e)=>{
-        e.preventDefault();
-        toast.success("Thanks for contacting")
-    }
+  // handleContact
+  const handleContact = (e) => {
+    e.preventDefault();
+    toast.success("Thanks for contacting");
+  };
   return (
     <div>
       <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 dark:bg-gray-800 dark:text-gray-100">

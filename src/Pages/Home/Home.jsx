@@ -1,68 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import Slider from "../../Components/BannarWithSwiper/Slider";
 import TopSealFood from "../../Components/TopSealFood/TopSealFood";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./gsapAnimation.css"
-import { useEffect } from "react";
-import Contact from "../../Components/Contact/Contact";
-gsap.registerPlugin(ScrollTrigger);
+import Contact from "../../Contact/Contact";
+import Counter from "../../Components/Counter/Counter";
 
 const Home = () => {
-  // gsap animation useEffect
-  useEffect(() => {
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#main", // Element that triggers the animation
-        markers:true,
-        start: "50% 50%",
-        end: "100% 100%",
-        scrub: 2,
-        pin: true,
-      },
-    });
-
-    tl.to(
-      "#center",
-      {
-        height: "100vh",
-      },
-      "a"
-    )
-      .to(
-        "#top",
-        {
-          top: "-50%",
-        },
-        "a"
-      )
-      .to(
-        "#bottom",
-        {
-          bottom: "-50%",
-        },
-        "a"
-      )
-      .to(
-        "#top-h1",
-        {
-          top: "60%",
-        },
-        "a"
-      )
-      .to(
-        "#bottom-h1",
-        {
-          bottom: "-30%",
-        },
-        "a"
-      )
-      .to(".content", {
-        delay: -0.2,
-        marginTop: "0%",
-      });
-  }, []);
   return (
     <div>
       <Helmet>
@@ -75,26 +17,15 @@ const Home = () => {
       <div className="max-w-screen-xl mx-auto px-8 md:px-12 lg:px-10 my-10">
         <TopSealFood></TopSealFood>
       </div>
-      {/* gsap animation   */}
-      <div>
-      <div id="main">
-        <div id="top">
-          <h1 id="top-h1">TANSIM</h1>
-        </div>
-        <div id="center">
-          <h2 className="content">hello</h2>
-        </div>
-        <div id="bottom">
-          <h1 id="bottom-h1">TANSIM</h1>
-        </div>
-      </div>
-      </div>
 
+      {/* counter section  */}
+      <div className="my-20">
+        <Counter></Counter>
+      </div>
       {/* contact section  */}
       <div className="my-10">
         <Contact></Contact>
       </div>
-      
     </div>
   );
 };

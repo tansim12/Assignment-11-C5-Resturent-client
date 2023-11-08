@@ -40,7 +40,7 @@ const FoodDetails = () => {
               <div className="flex -mx-2 mb-4">
                 <div className="w-1/2 px-2">
                   <Link to={`/purchaseForm/${_id}`}>
-                    {user?.email === email ? (
+                    {user && user?.email === email ? (
                       <button
                         disabled
                         className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
