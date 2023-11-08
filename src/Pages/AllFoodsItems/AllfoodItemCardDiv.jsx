@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { GrLinkNext } from "react-icons/gr";
 import UpdateButton from "../MyAddedFood/UpdateButton";
 
-const AllfoodItemCardDiv = ({ card, btnValue }) => {
+const AllfoodItemCardDiv = ({ card, btnValue ,refetch }) => {
   return (
     <div key={card?._id} className="w-full">
       <div className="rounded-lg p-5  shadow-black shadow-2xl ">
@@ -81,7 +81,7 @@ const AllfoodItemCardDiv = ({ card, btnValue }) => {
                   </span>
                 </Link>
               ) : (
-                <UpdateButton card={card} btnValue={btnValue}></UpdateButton>
+                <UpdateButton card={card} btnValue={btnValue} refetch={refetch}></UpdateButton>
               )}
             </div>
           </div>

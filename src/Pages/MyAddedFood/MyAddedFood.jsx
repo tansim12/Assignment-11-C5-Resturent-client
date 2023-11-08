@@ -10,7 +10,7 @@ import NoProducts from "../../Components/NoProducts/NoProducts";
 const MyAddedFood = () => {
   const { user } = useAuthContext();
   const instance = useAxiosHook();
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["myAddedFoods", user?.email],
     queryFn: async () => {
       try {
@@ -47,6 +47,7 @@ const MyAddedFood = () => {
             <AllfoodItemCardDiv
               key={card?._id}
               card={card}
+              refetch={refetch}
               btnValue={"Update"}
             ></AllfoodItemCardDiv>
           ))}

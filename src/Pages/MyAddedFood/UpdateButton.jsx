@@ -1,7 +1,7 @@
 import { GrLinkNext } from "react-icons/gr";
 import UpdateFoodDetailsForm from "./UpdateFoodDetailsForm";
 
-const UpdateButton = ({card, btnValue }) => {
+const UpdateButton = ({card, btnValue ,refetch }) => {
   return (
     <div>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}
@@ -23,7 +23,7 @@ const UpdateButton = ({card, btnValue }) => {
             </button>
           </form>
           <div>
-            <UpdateFoodDetailsForm card={card}></UpdateFoodDetailsForm>
+            <UpdateFoodDetailsForm card={card} refetch={refetch}></UpdateFoodDetailsForm>
           </div>
         </div>
       </dialog>

@@ -4,7 +4,7 @@ import useAuthContext from "../../Hooks/useAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const UpdateFoodDetailsForm = ({ card }) => {
+const UpdateFoodDetailsForm = ({ card ,refetch }) => {
   const navigate = useNavigate();
   const {
     food_name,
@@ -69,6 +69,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
       const fetchData = await res.data;
       if (fetchData.modifiedCount > 0) {
         toast.success("Update successfully done", { id: toastId });
+        refetch()
         navigate("/allFoodsItems");
       }
     } catch (error) {
@@ -84,6 +85,7 @@ const UpdateFoodDetailsForm = ({ card }) => {
       const fetchData = await res.data;
       if (fetchData.modifiedCount > 0) {
         toast.success("Update successfully done", { id: toastId });
+        refetch()
         navigate("/allFoodsItems");
       }
     } catch (error) {
