@@ -29,6 +29,7 @@ const PurchaseForm = () => {
     },
   });
 
+  console.log(data);
   const [currentPrice, setCurrentPrice] = useState(data?.price);
   const [newQuantity, setNewQuantity] = useState(data?.quantity);
 
@@ -42,8 +43,9 @@ const PurchaseForm = () => {
     const price = form.price.value;
     const date = form.date.value;
     const quantity = form.quantity.value;
+   console.log(data?.total_purchase);
     const newTotalPurchase = {
-      total_purchase: data?.total_purchase + newQuantity,
+      total_purchase: data?.total_purchase + newQuantity || data?.quantity
     };
 
     if (data?.quantity < 1) {
@@ -64,7 +66,7 @@ const PurchaseForm = () => {
     const foodImage = data?.image;
     const description = data?.description;
     const storedDate = data?.stored_date;
-    console.log(foodImage);
+    // console.log(foodImage);
     const info = {
       userName,
       price,
@@ -77,6 +79,11 @@ const PurchaseForm = () => {
       description,
       storedDate,
     };
+
+    // console.log(newTotalPurchase);
+    // console.log(data?.total_purchase);
+    // console.log(newQuantity);
+   
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -98,7 +105,7 @@ const PurchaseForm = () => {
             axios
               .patch(
                 `https://assingment-11-c5-server.vercel.app/api/v1/foodItems/${data?._id}`,
-                newTotalPurchase
+                newTotalPurchase || data?.total_purchase
               )
               .then((res) => {
                 if (res.data.acknowledged) {
@@ -118,6 +125,8 @@ const PurchaseForm = () => {
     }
   };
 
+  
+  
   return (
     <section className="min-h-[90vh] pt-16">
       <Helmet>
@@ -224,11 +233,12 @@ const PurchaseForm = () => {
                       const val = parseInt(e.target.value);
 
                       if (val > 0) {
-                        console.log(currentPrice);
+                        // console.log(currentPrice);
                         setCurrentPrice(data?.price * val);
                       } else {
                         setCurrentPrice(0);
                       }
+                      // console.log(val);
                       setNewQuantity(val);
                     }}
                     type="number"

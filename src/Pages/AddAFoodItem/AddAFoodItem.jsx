@@ -34,6 +34,7 @@ const AddAFoodItem = () => {
     if (quantity <= 0) {
       return toast.error("Quantity should not less then 1");
     }
+    console.log();
     const info = {
       category: categoryValue,
       price,

@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import loginAnimation from "../../assets/loginLotteFiles.json";
@@ -11,7 +11,6 @@ const Login = () => {
   const patten = /^(?=.*[A-Z])(?=.*[@#$%^&+=!]).{6,}$/;
   const capital = /[A-Z]/;
   const navigate = useNavigate();
-  const loc = useLocation();
 
   // handleLogin
   const handleLogin = (e) => {
@@ -30,10 +29,10 @@ const Login = () => {
     const toastId = toast.loading("Login Successfully done");
     login(email, password)
       .then(() => {
-        toast.success("Login successfully done" , {id: toastId});
-        navigate(loc?.state ? loc?.state : "/");
+        toast.success("Login successfully done", { id: toastId });
+        navigate("/");
       })
-      .catch(() => toast.error("Invalid user ." , {id :toastId}));
+      .catch(() => toast.error("Invalid user .", { id: toastId }));
   };
 
   return (
