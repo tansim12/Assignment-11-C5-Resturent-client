@@ -26,7 +26,7 @@ const MyAddedFood = () => {
   });
 
   return (
-    <section className="max-w-screen-xl mx-auto px-2 sm:px-4 md:mx-6 ">
+    <section className="max-w-screen-xl mx-auto px-2 sm:px-4 md:px-6  ">
       <Helmet>
         <title>My added food</title>
       </Helmet>
