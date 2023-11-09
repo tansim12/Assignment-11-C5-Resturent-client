@@ -13,7 +13,10 @@ const LogOut = () => {
       await logOut()
         .then(() => {
           axios
-            .post("https://assingment-11-c5-server.vercel.app/api/v1/removeCookie")
+            .post(
+              "https://assingment-11-c5-server.vercel.app/api/v1/removeCookie",
+              { withCredentials: true }
+            )
             .then((res) => {
               // console.log(res);
               if (res.data.success) {
