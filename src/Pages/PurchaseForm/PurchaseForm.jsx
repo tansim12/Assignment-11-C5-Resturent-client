@@ -29,7 +29,6 @@ const PurchaseForm = () => {
     },
   });
 
-  console.log(data);
   const [currentPrice, setCurrentPrice] = useState(data?.price);
   const [newQuantity, setNewQuantity] = useState(data?.quantity);
 
@@ -43,9 +42,9 @@ const PurchaseForm = () => {
     const price = form.price.value;
     const date = form.date.value;
     const quantity = form.quantity.value;
-   console.log(data?.total_purchase);
+    console.log(data?.total_purchase);
     const newTotalPurchase = {
-      total_purchase: data?.total_purchase + newQuantity || data?.quantity
+      total_purchase: data?.total_purchase + newQuantity || data?.quantity,
     };
 
     if (data?.quantity < 1) {
@@ -60,13 +59,13 @@ const PurchaseForm = () => {
     if (currentPrice === 0) {
       return toast.error("Stoke out");
     }
-    // console.log(userName, price, date, quantity, foodName, email );
+
     // update database this info
     const foodId = data?._id;
     const foodImage = data?.image;
     const description = data?.description;
     const storedDate = data?.stored_date;
-    // console.log(foodImage);
+
     const info = {
       userName,
       price,
@@ -80,10 +79,6 @@ const PurchaseForm = () => {
       storedDate,
     };
 
-    // console.log(newTotalPurchase);
-    // console.log(data?.total_purchase);
-    // console.log(newQuantity);
-   
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -125,8 +120,6 @@ const PurchaseForm = () => {
     }
   };
 
-  
-  
   return (
     <section className="min-h-[90vh] pt-16">
       <Helmet>
@@ -233,12 +226,11 @@ const PurchaseForm = () => {
                       const val = parseInt(e.target.value);
 
                       if (val > 0) {
-                        // console.log(currentPrice);
                         setCurrentPrice(data?.price * val);
                       } else {
                         setCurrentPrice(0);
                       }
-                      // console.log(val);
+
                       setNewQuantity(val);
                     }}
                     type="number"

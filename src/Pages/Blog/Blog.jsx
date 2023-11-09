@@ -1,6 +1,9 @@
+import { Helmet } from "react-helmet-async";
+
 const Blog = () => {
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-10 my-10">
+      <Helmet><title>Blog</title></Helmet>
       <p className="text-5xl text-center from-purple-300 mb-10 via-red-500 to-indigo-500 bg-gradient-to-br text text-transparent bg-clip-text font-black">
         FAQs
       </p>

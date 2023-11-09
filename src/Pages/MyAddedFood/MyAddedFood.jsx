@@ -7,11 +7,12 @@ import noFound from "../../assets/nodataFound.json";
 import AllfoodItemCardDiv from "../AllFoodsItems/AllfoodItemCardDiv";
 import NoProducts from "../../Components/NoProducts/NoProducts";
 import axios from "axios";
+import LoadingSkeleton from "../LoadingSkeleton/LoadingSkeleton";
 
 const MyAddedFood = () => {
   const { user } = useAuthContext();
 
-  const { data, refetch } = useQuery({
+  const { data, refetch , isLoading } = useQuery({
     queryKey: ["myAddedFoods", user?.email],
     queryFn: async () => {
       try {
@@ -25,6 +26,10 @@ const MyAddedFood = () => {
       }
     },
   });
+
+  if (isLoading) {
+    return <LoadingSkeleton></LoadingSkeleton>
+  }
 
   return (
     <section className="max-w-screen-xl mx-auto px-2 sm:px-4 md:px-6  ">
